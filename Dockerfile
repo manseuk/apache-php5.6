@@ -12,9 +12,7 @@ RUN apt-get update && apt-get install -y \
         git \
         libtidy-dev \
         nano \
-        libcurl3 \
-        libcurl3-dev \
-    && docker-php-ext-install -j$(nproc) iconv mcrypt zip mysqli pdo_mysql tidy bcmath json curl \
+    && docker-php-ext-install -j$(nproc) iconv mcrypt zip mysqli pdo_mysql tidy bcmath json \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
@@ -37,6 +35,6 @@ RUN a2enmod rewrite
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-VOLUME ["/usr/local/etc/php", "/usr/local/apache2/conf", "/var/log/apache2", "/var/www/html"]
+VOLUME ["/usr/local/etc/php", "/etc/apache2/sites-available", "/var/log/apache2", "/var/www/html"]
 
 WORKDIR /var/www/html
